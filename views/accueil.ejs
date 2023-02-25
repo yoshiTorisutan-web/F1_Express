@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <%- include('./template_ejs/head.ejs'); %>
+  </head>
+  <body>
+    <header><%- include('./template_ejs/header.ejs'); %></header>
+
+    <div class="flex items-center justify-center h-screen">
+      <div
+        class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+      >
+        <h5
+          class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+        >
+          Bienvenue sur mon site web !
+        </h5>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          Bienvenue <%= login %>
+        </p>
+      </div>
+    </div>
+
+    <footer><%- include('./template_ejs/footer.ejs'); %></footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
+  </body>
+</html>
