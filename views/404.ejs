@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8" />
-    <title>Page non trouvée</title>
+    <%- include('./template_ejs/head.ejs'); %>
   </head>
-  <body>
-    <h1>Page non trouvée</h1>
-    <p>Désolé, la page que vous recherchez n'existe pas.</p>
-    <p>Retourner à la <a href="/">page d'accueil</a>.</p>
+  <body class="crash">
+    <div class="over404">
+      <div class="darkOverlay"></div>
+      <header>
+        <h1 class="glitch" data-text="404">404</h1>
+      </header>
+    </div>
   </body>
 </html>

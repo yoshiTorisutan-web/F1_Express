@@ -1,7 +1,6 @@
 const express = require("express");
 const session = require("express-session");
 const ejs = require("ejs");
-const path = require('path');
 
 const accueilRoutes = require("./routes/accueil");
 const connexionRoutes = require("./routes/connexion");
@@ -9,6 +8,7 @@ const deconnexionRoutes = require("./routes/deconnexion");
 const telechargerRoutes = require("./routes/telecharger");
 const chapitreRoutes = require("./routes/chapitre");
 const notFoundRoutes = require("./routes/404");
+
 
 const app = express();
 const port = 8080;
