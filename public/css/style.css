@@ -1,3 +1,13 @@
+/* Font personnalisé */
+@font-face {
+  font-family: 'Formula_1';
+  src: url('../polices/Formula_1.ttf');
+}
+
+.font-Formula_1 {
+  font-family: 'Formula_1', sans-serif;
+}
+
 /* Accueil */
 #default-carousel {
   position: absolute;
