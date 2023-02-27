@@ -6,6 +6,7 @@ const accueilRoutes = require("./routes/accueil");
 const connexionRoutes = require("./routes/connexion");
 const deconnexionRoutes = require("./routes/deconnexion");
 const telechargerRoutes = require("./routes/telecharger");
+const selectRoutes = require("./routes/select");
 const chapitreRoutes = require("./routes/chapitre");
 const notFoundRoutes = require("./routes/404");
 
@@ -29,6 +30,7 @@ app.use("/", accueilRoutes);
 app.use("/connexion", connexionRoutes);
 app.use("/deconnexion", deconnexionRoutes);
 app.use("/telecharger", telechargerRoutes);
+app.use("/select", selectRoutes);
 app.use("/chapitre", chapitreRoutes);
 app.use(notFoundRoutes);
 
