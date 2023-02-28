@@ -8,6 +8,7 @@ const deconnexionRoutes = require("./routes/deconnexion");
 const telechargerRoutes = require("./routes/telecharger");
 const selectRoutes = require("./routes/select");
 const chapitreRoutes = require("./routes/chapitre");
+const adminRoutes = require("./routes/admin");
 const notFoundRoutes = require("./routes/404");
 
 
@@ -32,6 +33,7 @@ app.use("/deconnexion", deconnexionRoutes);
 app.use("/telecharger", telechargerRoutes);
 app.use("/select", selectRoutes);
 app.use("/chapitre", chapitreRoutes);
+app.use("/admin", adminRoutes);
 app.use(notFoundRoutes);
 
 app.set("view engine", "ejs");
