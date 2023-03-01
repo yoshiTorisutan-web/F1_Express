@@ -1,11 +1,11 @@
 /* Font personnalisé */
 @font-face {
-  font-family: 'Formula_1';
-  src: url('../polices/Formula_1.ttf');
+  font-family: "Formula_1";
+  src: url("../polices/Formula_1.ttf");
 }
 
 .font-Formula_1 {
-  font-family: 'Formula_1', sans-serif;
+  font-family: "Formula_1", sans-serif;
 }
 
 /* Accueil */
@@ -36,6 +36,23 @@ header {
 footer {
   position: relative;
   z-index: 10;
+}
+
+/* Chat */
+.chat {
+  font-family: sans-serif;
+}
+.message {
+  margin-bottom: 5px;
+}
+.username {
+  font-weight: bold;
+  color: red;
+}
+.date {
+  float: right;
+  color: gray;
+  font-size: 12px;
 }
 
 /* 404 */
@@ -547,3 +564,5 @@ footer {
     background-image: url("http://xerxesjarquin.com/images/glitch/16.jpg");
   }
 }
+
+
