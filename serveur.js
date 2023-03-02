@@ -19,10 +19,12 @@ const connexionRoutes = require("./routes/connexion");
 const deconnexionRoutes = require("./routes/deconnexion");
 const telechargerRoutes = require("./routes/telecharger");
 const selectRoutes = require("./routes/select");
-const chapitreRoutes = require("./routes/chapitre");
+const equipeRoutes = require("./routes/equipe");
 const adminRoutes = require("./routes/admin");
+const contactRoutes = require("./routes/contact");
 const chatRoutes = require("./routes/chat");
 const notFoundRoutes = require("./routes/404");
+const worksRoutes = require("./routes/maintenance");
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -41,9 +43,11 @@ app.use("/connexion", connexionRoutes);
 app.use("/deconnexion", deconnexionRoutes);
 app.use("/telecharger", telechargerRoutes);
 app.use("/select", selectRoutes);
-app.use("/chapitre", chapitreRoutes);
+app.use("/equipe", equipeRoutes);
 app.use("/admin", adminRoutes);
+app.use("/contact", contactRoutes);
 app.use("/chat", chatRoutes);
+app.use("/maintenance", worksRoutes)
 app.use(notFoundRoutes);
 
 app.set("view engine", "ejs");
