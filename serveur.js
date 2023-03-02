@@ -5,6 +5,13 @@ const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 
+const Filter = require("bad-words");
+
+const filter = new Filter({
+  placeHolder: "*", // Remplacer les gros mots par des astérisques
+  whitelist: ["allowed", "words"], // Autoriser ces mots
+});
+
 const port = 8080;
 
 const accueilRoutes = require("./routes/accueil");
@@ -44,7 +51,6 @@ http.listen(port, () => {
   console.log(`Serveur démarré sur le port ${port}`);
 });
 
-
 /* Socket.io */
 
 var i;
@@ -58,35 +64,34 @@ var messages = [];
 //Liste des utilisateurs en train de saisir un message
 var typingUsers = [];
 
-io.on('connection', function (socket) {
-
+io.on("connection", function (socket) {
   //Utilisateur connecté à la socket
   var loggedUser;
 
   //Emission d'un événement "user-login" pour chaque utilisateur connecté
   for (i = 0; i < users.length; i++) {
-    socket.emit('user-login', users[i]);
+    socket.emit("user-login", users[i]);
   }
-
 
   //Emission d'un événement "chat-message" pour chaque message de l'historique
   for (i = 0; i < messages.length; i++) {
     if (messages[i].username !== undefined) {
-      socket.emit('chat-message', messages[i]);
+      messages[i].timestamp = new Date(messages[i].timestamp).toISOString(); // Convertir la date en format ISO string
+      socket.emit("chat-message", messages[i]);
     } else {
-      socket.emit('service-message', messages[i]);
+      socket.emit("service-message", messages[i]);
     }
   }
 
   //Déconnexion d'un utilisateur
-  socket.on('disconnect', function () {
+  socket.on("disconnect", function () {
     if (loggedUser !== undefined) {
       // Broadcast d'un 'service-message'
       var serviceMessage = {
-        text: loggedUser.username + ' vient de se déconnecter',
-        type: 'logout'
+        text: loggedUser.username + " vient de se déconnecter.",
+        type: "logout",
       };
-      socket.broadcast.emit('service-message', serviceMessage);
+      socket.broadcast.emit("service-message", serviceMessage);
       // Suppression de la liste des connectés
       var userIndex = users.indexOf(loggedUser);
       if (userIndex !== -1) {
@@ -95,7 +100,7 @@ io.on('connection', function (socket) {
       // Ajout du message à l'historique
       messages.push(serviceMessage);
       // Emission d'un 'user-logout' contenant le user
-      io.emit('user-logout', loggedUser);
+      io.emit("user-logout", loggedUser);
       // Si jamais il était en train de saisir un texte, on l'enlève de la liste
       var typingUserIndex = typingUsers.indexOf(loggedUser);
       if (typingUserIndex !== -1) {
@@ -104,10 +109,9 @@ io.on('connection', function (socket) {
     }
   });
 
-
   //Connexion d'un utilisateur via le formulaire :
 
-  socket.on('user-login', function (user, callback) {
+  socket.on("user-login", function (user, callback) {
     // Vérification que l'utilisateur n'existe pas
     var userIndex = -1;
     for (i = 0; i < users.length; i++) {
@@ -115,60 +119,80 @@ io.on('connection', function (socket) {
         userIndex = i;
       }
     }
-    if (user !== undefined && userIndex === -1) { // S'il est bien nouveau
+    if (user !== undefined && userIndex === -1) {
+      // S'il est bien nouveau
       // Sauvegarde de l'utilisateur et ajout à la liste des connectés
       loggedUser = user;
       users.push(loggedUser);
       // Envoi et sauvegarde des messages de service
       var userServiceMessage = {
-        text: loggedUser.username + ' vient de se connecter',
-        type: 'login'
+        text: loggedUser.username + " vient de se connecter.",
+        type: "login",
       };
       var broadcastedServiceMessage = {
-        text: loggedUser.username + ' vient de se connecter',
-        type: 'login'
+        text: loggedUser.username + " vient de se connecter.",
+        type: "login",
       };
-      socket.emit('service-message', userServiceMessage);
-      socket.broadcast.emit('service-message', broadcastedServiceMessage);
+      socket.emit("service-message", userServiceMessage);
+      socket.broadcast.emit("service-message", broadcastedServiceMessage);
       messages.push(broadcastedServiceMessage);
       // Emission de 'user-login' et appel du callback
-      io.emit('user-login', loggedUser);
+      io.emit("user-login", loggedUser);
       callback(true);
     } else {
       callback(false);
     }
   });
 
-  //Réception de l'événement 'chat-message' et réémission vers tous les utilisateurs
-  socket.on('chat-message', function (message) {
+  // Liste des mots interdits
+  const forbiddenWords = ["Putain", "Merde", "Connard", "Fais chier", "Fuck"];
+
+  // Fonction pour remplacer les mots interdits par des astérisques
+  function censorMessage(message) {
+    let censoredMessage = message;
+    forbiddenWords.forEach((word) => {
+      const regexp = new RegExp(word, "gi");
+      censoredMessage = censoredMessage.replace(
+        regexp,
+        "*".repeat(word.length)
+      );
+    });
+    return censoredMessage;
+  }
+
+  // Réception de l'événement 'chat-message'
+  socket.on("chat-message", function (message) {
     // On ajoute le username au message et on émet l'événement
     message.username = loggedUser.username;
-    io.emit('chat-message', message);
-    // Sauvegarde du message
+    message.timestamp = new Date().toISOString(); // Ajouter la propriété timestamp avec la date et l'heure actuelles
+    // On remplace les mots interdits par des astérisques dans le message
+    const censoredMessage = censorMessage(message.text);
+    message.text = censoredMessage;
+    io.emit("chat-message", message);
+    // Sauvegarde du message original dans l'historique
     messages.push(message);
     if (messages.length > 150) {
       messages.splice(0, 1);
     }
   });
 
-
   //Réception de l'événement 'start-typing'
   //L'utilisateur commence à saisir son message
-  socket.on('start-typing', function () {
+  socket.on("start-typing", function () {
     // Ajout du user à la liste des utilisateurs en cours de saisie
     if (typingUsers.indexOf(loggedUser) === -1) {
       typingUsers.push(loggedUser);
     }
-    io.emit('update-typing', typingUsers);
+    io.emit("update-typing", typingUsers);
   });
 
   //Réception de l'événement 'stop-typing'
   //L'utilisateur a arrêter de saisir son message
-  socket.on('stop-typing', function () {
+  socket.on("stop-typing", function () {
     var typingUserIndex = typingUsers.indexOf(loggedUser);
     if (typingUserIndex !== -1) {
       typingUsers.splice(typingUserIndex, 1);
     }
-    io.emit('update-typing', typingUsers);
+    io.emit("update-typing", typingUsers);
   });
 });

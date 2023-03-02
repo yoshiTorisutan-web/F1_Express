@@ -10,13 +10,13 @@
       <ul id="messages"></ul>
       <ul id="users"></ul>
       <form action="">
-        <input id="m" autocomplete="off" /><button>Send</button>
+        <input id="m" autocomplete="off" /><button>Envoyer</button>
         <input id="date" type="hidden" value="" />
       </form>
     </section>
     <section id="login">
       <form action="">
-        <label for="u">Username</label>
+        <label for="u">Pseudo</label>
         <input id="u" autocomplete="off" autofocus />
         <p>
           <button>Login</button>
@@ -81,17 +81,16 @@
 
       //Réception d'un message
       socket.on("chat-message", function (message) {
-        var date = new Date(message.date); // Convertit la date en objet Date
-        var formattedDate =
-          date.toLocaleTimeString(); // Formatte la date pour l'affichage
+        var date = new Date(message.date);
+        var formattedDate = date.toLocaleString();
         $("#messages").append(
           $("<li>").html(
             '<span class="username">' +
               message.username +
-              "</span>: " +
-              message.text +
-              '</span>  =====>  <span class="date">' +
-              formattedDate // Affiche la date du message
+              "</span> (" +
+              formattedDate +
+              ") :  " +
+              message.text
           )
         );
         scrollToBottom();
@@ -101,7 +100,7 @@
       socket.on("service-message", function (message) {
         $("#messages").append(
           $('<li class="' + message.type + '">').html(
-            '<span class="info">information</span> ' + message.text
+            '<span class="info"><strong>SERVER</strong></span> ' + message.text
           )
         );
         scrollToBottom();
@@ -111,6 +110,9 @@
 
       socket.on("user-login", function (user) {
         $("#users").append(
+          $("<li>").html(
+            '<span style="text-align: center;"><strong>Bienvenue sur le chat F1_EXPRESS</strong></span>'
+          ),
           $('<li class="' + user.username + ' new">').html(
             user.username + '<span class="typing">typing</span>'
           )
