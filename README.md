@@ -12,7 +12,7 @@ Application sur la F1, permettant de découvrir Express.JS et socket.io avec dif
 
 
 <!-- Réalisé -->
-# Réalisé avec ( + Version) :
+# Réalisé avec :
 
 * Express.JS
 * Socket.io
