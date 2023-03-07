@@ -1,11 +1,14 @@
-const express = require("express");
-const session = require("express-session");
-const ejs = require("ejs");
-const app = express();
-const http = require("http").Server(app);
-const io = require("socket.io")(http);
 
-const Filter = require("bad-words");
+import express from "express";
+import session from "express-session";
+import ejs from "ejs";
+const app = express();
+import { Server } from "http";
+const http = Server(app);
+import { Server as SocketIOServer } from "socket.io";
+const io = new SocketIOServer(http);
+
+import Filter from "bad-words";
 
 const filter = new Filter({
   placeHolder: "*", // Remplacer les gros mots par des astérisques
@@ -14,17 +17,17 @@ const filter = new Filter({
 
 const port = 8080;
 
-const accueilRoutes = require("./routes/accueil");
-const connexionRoutes = require("./routes/connexion");
-const deconnexionRoutes = require("./routes/deconnexion");
-const telechargerRoutes = require("./routes/telecharger");
-const selectRoutes = require("./routes/select");
-const equipeRoutes = require("./routes/equipe");
-const adminRoutes = require("./routes/admin");
-const contactRoutes = require("./routes/contact");
-const chatRoutes = require("./routes/chat");
-const notFoundRoutes = require("./routes/404");
-const worksRoutes = require("./routes/maintenance");
+import accueilRoutes from "./routes/accueil.js";
+import connexionRoutes from "./routes/connexion.js";
+import deconnexionRoutes from "./routes/deconnexion.js";
+import telechargerRoutes from "./routes/telecharger.js";
+import selectRoutes from "./routes/select.js";
+import equipeRoutes from "./routes/equipe.js";
+import adminRoutes from "./routes/admin.js";
+import contactRoutes from "./routes/contact.js";
+import chatRoutes from "./routes/chat.js";
+import notFoundRoutes from "./routes/404.js";
+import worksRoutes from "./routes/maintenance.js";
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -57,20 +60,20 @@ http.listen(port, () => {
 
 /* Socket.io */
 
-var i;
+let i;
 
 //Liste des utilisateurs connectés
-var users = [];
+let users = [];
 
 //Historique des messages
-var messages = [];
+let messages = [];
 
 //Liste des utilisateurs en train de saisir un message
-var typingUsers = [];
+let typingUsers = [];
 
 io.on("connection", function (socket) {
   //Utilisateur connecté à la socket
-  var loggedUser;
+  let loggedUser;
 
   //Emission d'un événement "user-login" pour chaque utilisateur connecté
   for (i = 0; i < users.length; i++) {
@@ -91,13 +94,13 @@ io.on("connection", function (socket) {
   socket.on("disconnect", function () {
     if (loggedUser !== undefined) {
       // Broadcast d'un 'service-message'
-      var serviceMessage = {
+      let serviceMessage = {
         text: loggedUser.username + " vient de se déconnecter.",
         type: "logout",
       };
       socket.broadcast.emit("service-message", serviceMessage);
       // Suppression de la liste des connectés
-      var userIndex = users.indexOf(loggedUser);
+      let userIndex = users.indexOf(loggedUser);
       if (userIndex !== -1) {
         users.splice(userIndex, 1);
       }
@@ -106,7 +109,7 @@ io.on("connection", function (socket) {
       // Emission d'un 'user-logout' contenant le user
       io.emit("user-logout", loggedUser);
       // Si jamais il était en train de saisir un texte, on l'enlève de la liste
-      var typingUserIndex = typingUsers.indexOf(loggedUser);
+      let typingUserIndex = typingUsers.indexOf(loggedUser);
       if (typingUserIndex !== -1) {
         typingUsers.splice(typingUserIndex, 1);
       }
@@ -117,7 +120,7 @@ io.on("connection", function (socket) {
 
   socket.on("user-login", function (user, callback) {
     // Vérification que l'utilisateur n'existe pas
-    var userIndex = -1;
+    let userIndex = -1;
     for (i = 0; i < users.length; i++) {
       if (users[i].username === user.username) {
         userIndex = i;
@@ -129,11 +132,11 @@ io.on("connection", function (socket) {
       loggedUser = user;
       users.push(loggedUser);
       // Envoi et sauvegarde des messages de service
-      var userServiceMessage = {
+      let userServiceMessage = {
         text: loggedUser.username + " vient de se connecter.",
         type: "login",
       };
-      var broadcastedServiceMessage = {
+      let broadcastedServiceMessage = {
         text: loggedUser.username + " vient de se connecter.",
         type: "login",
       };
@@ -149,7 +152,7 @@ io.on("connection", function (socket) {
   });
 
   // Liste des mots interdits
-  const forbiddenWords = ["Putain", "Merde", "Connard", "Fais chier", "Fuck"];
+  const forbiddenWords = ["Putain", "Merde", "Connard", "Fais chier"];
 
   // Fonction pour remplacer les mots interdits par des astérisques
   function censorMessage(message) {
@@ -193,7 +196,7 @@ io.on("connection", function (socket) {
   //Réception de l'événement 'stop-typing'
   //L'utilisateur a arrêter de saisir son message
   socket.on("stop-typing", function () {
-    var typingUserIndex = typingUsers.indexOf(loggedUser);
+    let typingUserIndex = typingUsers.indexOf(loggedUser);
     if (typingUserIndex !== -1) {
       typingUsers.splice(typingUserIndex, 1);
     }

@@ -1,4 +1,15 @@
 /* Chat */
+
+/* Font personnalisé */
+@font-face {
+  font-family: "Formula_1";
+  src: url("../polices/Formula_1.ttf");
+}
+
+.font-Formula_1 {
+  font-family: "Formula_1", sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -25,6 +36,7 @@ body#logged-out section#login {
   opacity: 1;
 }
 section#chat {
+  margin-top: 75px;
   height: 100%;
 }
 section#chat form {
@@ -75,12 +87,10 @@ section#chat #messages li.login {
 }
 section#chat #messages li span.username {
   display: inline-block;
-  padding: 6px 10px;
-  margin-right: 5px;
-  color: white;
-  background: #e62222;
-  border-radius: 5px;
+  padding: 6px;
+  color: rgb(255, 0, 0);
   font-weight: bold;
+  text-decoration: underline;
 }
 section#chat #messages li span.info {
   display: inline-block;
@@ -102,14 +112,14 @@ section#chat #users {
   border-left: 3px solid #eee;
 }
 section#chat #users li.new {
-  background: #e67e22;
+  background: #0091ff;
   color: white;
 }
 section#chat #users li {
   padding: 6px 10px;
   margin: 10px 10px;
   border-radius: 5px;
-  border: 1px solid #e67e22;
+  border: 1px solid #0091ff;
   color: black;
   transition: all 0.5s;
 }
@@ -150,4 +160,21 @@ section#login button {
   margin-top: 20px;
   cursor: pointer;
 }
+.chat-message {
+  font-weight: bold;
+}
+.chat-date {
+  font-style: italic;
+}
 
+/* Scrollbar */
+/* ScrollBar */
+::-webkit-scrollbar {
+  width: 10px;
+  background: #232526;
+}
+::-webkit-scrollbar-thumb {
+  border: solid 0 transparent;
+  background-color: #414345;
+  border-radius: 10px;
+}

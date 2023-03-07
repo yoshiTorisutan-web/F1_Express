@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
 router.get("/:id", (req, res) => {
@@ -6,4 +6,4 @@ router.get("/:id", (req, res) => {
   res.render("equipe.ejs", { id });
 });
 
-module.exports = router;
+export default router;

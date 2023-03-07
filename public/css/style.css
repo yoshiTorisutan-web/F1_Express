@@ -28,6 +28,11 @@ body {
   background-image: url("/assets/pexels-bitume-circuit-12426.jpg");
 }
 
+.fixBody {
+  background-image: url("/assets/pexels-bitume-circuit-12426.jpg");
+  overflow: hidden;
+}
+
 header {
   position: relative;
   z-index: 10;
@@ -565,4 +570,13 @@ footer {
   }
 }
 
-
+/* ScrollBar */
+::-webkit-scrollbar {
+  width: 10px;
+  background: #232526;
+}
+::-webkit-scrollbar-thumb {
+  border: solid 0 transparent;
+  background-color: #414345;
+  border-radius: 10px;
+}

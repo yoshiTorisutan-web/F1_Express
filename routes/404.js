@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
 router.use((req, res) => {
   res.status(404).render("404.ejs");
 });
 
-module.exports = router;
+export default router;

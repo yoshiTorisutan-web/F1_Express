@@ -1,6 +1,10 @@
-const express = require("express");
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 const router = express.Router();
-const path = require("path");
 
 router.get("/", (req, res) => {
   const filePath = path.join(
@@ -10,4 +14,5 @@ router.get("/", (req, res) => {
   res.download(filePath);
 });
 
-module.exports = router;
+export default router;
+
