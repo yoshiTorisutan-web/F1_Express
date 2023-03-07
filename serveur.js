@@ -20,6 +20,7 @@ const port = 8080;
 import accueilRoutes from "./routes/accueil.js";
 import connexionRoutes from "./routes/connexion.js";
 import deconnexionRoutes from "./routes/deconnexion.js";
+import redirectionRoutes from "./routes/redirection.js";
 import telechargerRoutes from "./routes/telecharger.js";
 import selectRoutes from "./routes/select.js";
 import equipeRoutes from "./routes/equipe.js";
@@ -44,6 +45,7 @@ app.use(
 app.use("/", accueilRoutes);
 app.use("/connexion", connexionRoutes);
 app.use("/deconnexion", deconnexionRoutes);
+app.use("/redirection", redirectionRoutes);
 app.use("/telecharger", telechargerRoutes);
 app.use("/select", selectRoutes);
 app.use("/equipe", equipeRoutes);
