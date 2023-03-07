@@ -5,10 +5,6 @@
     <title>F1_EXPRESS</title>
     <link rel="stylesheet" href="/css/styleChat.css" />
     <link rel="shortcut icon" type="image/png" href="/assets/f1.png" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap"
-      rel="stylesheet"
-    />
     <script
       src="https://kit.fontawesome.com/4b9ba14b0f.js"
       crossorigin="anonymous"
@@ -21,6 +17,10 @@
     />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -117,14 +117,9 @@
         const date = new Date(message.date);
         const formattedDate = date.toLocaleString();
         const messageElement = document.createElement("li");
-        messageElement.innerHTML =
-          '<span class="username">' +
-          message.username +
-          '</span>: <span class="chat-date">(' +
-          formattedDate +
-          ')</span> : <span class="chat-message">' +
-          message.text +
-          "</span>";
+        messageElement.innerHTML =`<span class="username"> ${message.username}</span>:
+         <span class="chat-date">(${formattedDate})</span> : 
+         <span class="chat-message">${message.text}</span>`;
         document.querySelector("#messages").appendChild(messageElement);
         scrollToBottom();
       });
