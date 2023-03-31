@@ -45,7 +45,7 @@ router.get("/redirection", (req, res) => {
   res.render("redirection.ejs");
 });
 
-//Redirection
+//Confirmation
 router.get("/confirmation", (req, res) => {
   res.render("confirmation.ejs");
 });
