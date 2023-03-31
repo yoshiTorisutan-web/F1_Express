@@ -2,7 +2,9 @@
 import express from "express";
 import session from "express-session";
 import ejs from "ejs";
+
 const app = express();
+
 import { createServer } from "http";
 const httpServer = createServer(app);
 
@@ -17,8 +19,6 @@ import selectRoutes from "./routes/select.js";
 import equipeRoutes from "./routes/equipe.js";
 import chatRoutes from "./routes/chat.js";
 import notFoundRoutes from "./routes/404.js";
-
-
 import adminsRoutes from "./routes/admins.js";
 
 app.use(express.urlencoded({ extended: true }))
