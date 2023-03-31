@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <%- include('./template_ejs/head.ejs'); %>
+  </head>
+  <body>
+    <div class="flex items-center justify-center h-screen">
+      <div class="bg-white shadow-lg rounded-lg w-full max-w-md">
+        <div class="flex flex-col items-center px-10 pt-10 pb-10">
+          <h1 class="text-center text-sm lg:text-lg mb-8 font-bold">
+            Vous êtes déconnecté !
+          </h1>
+          <p class="text-center text-sm lg:text-lg mb-8">
+            Vous avez été déconnecté avec succès.
+          </p>
+          <p class="text-center text-sm lg:text-lg mb-8">
+            Merci d'avoir utilisé notre site.
+          </p>
+          <img
+            class="flex items-center justify-center w-20 h-20"
+            src="/assets/merci.png"
+            alt="Bordered avatar"
+          />
+          <div class="flex justify-center mt-8">
+            <button
+              type="button"
+              class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              onclick="window.location.href='/deconnexion'"
+            >
+              Retour à l'accueil
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
+  </body>
+</html>

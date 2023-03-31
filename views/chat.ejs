@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>F1_EXPRESS</title>
+    <link rel="stylesheet" href="/css/styleChat.css" />
+    <link rel="shortcut icon" type="image/png" href="/assets/f1.png" />
+    <script
+      src="https://kit.fontawesome.com/4b9ba14b0f.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <header><%- include('./template_ejs/header.ejs'); %></header>
+
+  <body id="logged-out">
+    <section id="chat">
+      <ul id="messages"></ul>
+      <ul id="users"></ul>
+      <form action="">
+        <input id="m" autocomplete="off" /><button>Envoyer</button>
+        <input id="date" type="hidden" value="" />
+      </form>
+    </section>
+    <section id="login">
+      <form action="">
+        <label for="u">Pseudo</label>
+        <input id="u" autocomplete="off" autofocus />
+        <p>
+          <button>Login</button>
+        </p>
+      </form>
+    </section>
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      let socket = io();
+      let i;
+
+      //Fonctions utiles
+
+      //Scroll vers le bas de page si l'utilisateur n'est pas remonté pour lire d'anciens messages
+      function scrollToBottom() {
+        const windowHeight = window.innerHeight;
+        const scrollTop = window.scrollY || window.pageYOffset;
+        const lastMessage = document.querySelector("#messages li:last-of-type");
+        const lastMessageHeight = lastMessage.offsetHeight;
+        const documentHeight = Math.max(
+          document.body.scrollHeight,
+          document.body.offsetHeight,
+          document.documentElement.clientHeight,
+          document.documentElement.scrollHeight,
+          document.documentElement.offsetHeight
+        );
+        if (
+          scrollTop + windowHeight + 2 * lastMessageHeight >=
+          documentHeight
+        ) {
+          window.scrollTo({ top: documentHeight, behavior: "smooth" });
+        }
+      }
+
+      //Gestion des événements
+
+      //Connexion de l'utilisateur
+      //Uniquement si le username n'est pas vide et n'existe pas encore
+      const loginForm = document.querySelector("#login form");
+      loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const usernameInput = document.querySelector("#login input");
+        const username = usernameInput.value.trim();
+        if (username.length > 0) {
+          const user = { username: username };
+          socket.emit("user-login", user, function (success) {
+            if (success) {
+              document.body.removeAttribute("id");
+              document.querySelector("#chat input").focus();
+            }
+          });
+        }
+      });
+
+      //Envoi d'un message
+      const chatForm = document.querySelector("#chat form");
+      chatForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const messageInput = document.querySelector("#m");
+        const messageText = messageInput.value.trim();
+        const message = {
+          text: messageText,
+          date: new Date(),
+        };
+        messageInput.value = "";
+        if (messageText.length !== 0) {
+          socket.emit("chat-message", message);
+        }
+        document.querySelector("#chat input").focus();
+      });
+
+      //Réception d'un message
+      socket.on("chat-message", function (message) {
+        const date = new Date(message.date);
+        const formattedDate = date.toLocaleString();
+        const messageElement = document.createElement("li");
+        messageElement.innerHTML =`<span class="username"> ${message.username}</span>:
+         <span class="chat-date">(${formattedDate})</span> : 
+         <span class="chat-message">${message.text}</span>`;
+        document.querySelector("#messages").appendChild(messageElement);
+        scrollToBottom();
+      });
+
+      //Réception d'un message de service
+      socket.on("service-message", function (message) {
+        let li = document.createElement("li");
+        li.classList.add(message.type);
+        let span = document.createElement("span");
+        span.classList.add("info");
+        span.innerHTML = "<strong>SERVER</strong>";
+        li.appendChild(span);
+        li.innerHTML += " " + message.text;
+        document.getElementById("messages").appendChild(li);
+        scrollToBottom();
+      });
+
+      //Connexion d'un nouvel utilisateur
+      socket.on("user-login", function (user) {
+        let li = document.createElement("li");
+        li.classList.add(user.username, "new");
+        li.innerHTML = user.username + '<span class="typing">typing</span>';
+        document.getElementById("users").appendChild(li);
+        setTimeout(function () {
+          document.querySelector("#users li.new").classList.remove("new");
+        }, 1000);
+      });
+
+      //Déconnexion d'un utilisateur
+      socket.on("user-logout", function (user) {
+        let selector = "#users li." + user.username;
+        let element = document.querySelector(selector);
+        element.parentNode.removeChild(element);
+      });
+
+      //Détection saisie utilisateur
+      let typingTimer;
+      let isTyping = false;
+
+      document.getElementById("m").addEventListener("keypress", function () {
+        clearTimeout(typingTimer);
+        if (!isTyping) {
+          socket.emit("start-typing");
+          isTyping = true;
+        }
+      });
+
+      document.getElementById("m").addEventListener("keyup", function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(function () {
+          if (isTyping) {
+            socket.emit("stop-typing");
+            isTyping = false;
+          }
+        }, 500);
+      });
+
+      // Gestion saisie des autres utilisateurs
+      socket.on("update-typing", function (typingUsers) {
+        let typingSpans = document.querySelectorAll("#users li span.typing");
+        typingSpans.forEach(function (span) {
+          span.style.display = "none";
+        });
+
+        typingUsers.forEach(function (user) {
+          let selector = "#users li." + user.username + " span.typing";
+          let typingSpan = document.querySelector(selector);
+          if (typingSpan) {
+            typingSpan.style.display = "inline";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
