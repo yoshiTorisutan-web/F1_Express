@@ -8,7 +8,7 @@
 <!-- Présentation du projet -->
 # Présentation du projet
 
-Application sur la F1, permettant de découvrir Express.JS et socket.io avec différentes fonctionnalités comme consulter le calendrier du championnat de F1 2023, consulter les différentes équipes de F1 et gérer un espace d'admin et de chat en tremps réel.
+Application sur la F1, permettant de découvrir Express.JS et socket.io avec différentes fonctionnalités comme consulter le calendrier du championnat de F1 2023, consulter les différentes équipes de F1, consulter les différents circuits du calendrier de 2023 (via une API) et gérer un espace d'admin et de chat en tremps réel.
 
 
 <!-- Réalisé -->
@@ -20,3 +20,4 @@ Application sur la F1, permettant de découvrir Express.JS et socket.io avec dif
 * CSS
 * HTML
 * Tailwind
+* API Formula ONE (Ergast.com)
