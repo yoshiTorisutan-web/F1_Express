@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <%- include('./template_ejs/head.ejs'); %>
+  </head>
+  <body>
+    <header><%- include('./template_ejs/header.ejs'); %></header>
+
+    <div class="flex justify-center mt-36 mb-36">
+      <div class="w-4/5 lg:w-1/2">
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="px-6 py-4">
+            <table class="table-fixed w-full">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th
+                    class="w-1/3 px-4 py-2 text-left text-gray-500 font-medium uppercase tracking-wider"
+                  >
+                    Nom du circuit
+                  </th>
+                  <th
+                    class="w-1/3 px-4 py-2 text-left text-gray-500 font-medium uppercase tracking-wider"
+                  >
+                    Localisation
+                  </th>
+                  <th
+                    class="w-1/3 px-4 py-2 text-left text-gray-500 font-medium uppercase tracking-wider"
+                  >
+                    Pays
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <% for(let i=0; i < circuits.length; i++) { %>
+                <tr>
+                  <td class="w-1/3 px-4 py-2 text-gray-500">
+                    <%= circuits[i].circuitName %>
+                  </td>
+                  <td class="w-1/3 px-4 py-2 text-gray-500">
+                    <%= circuits[i].Location.locality %>
+                  </td>
+                  <td class="w-1/3 px-4 py-2 text-gray-500">
+                    <%= circuits[i].Location.country %>
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
+  </body>
+</html>

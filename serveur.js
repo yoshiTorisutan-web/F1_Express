@@ -20,6 +20,7 @@ import equipeRoutes from "./routes/equipe.js";
 import chatRoutes from "./routes/chat.js";
 import notFoundRoutes from "./routes/404.js";
 import adminsRoutes from "./routes/admins.js";
+import circuitAPIRoutes from "./routes/circuits.js";
 
 app.use(express.urlencoded({ extended: true }))
 
@@ -38,6 +39,7 @@ app.use(express.urlencoded({ extended: true }))
 .use("/select", selectRoutes)
 .use("/equipe", equipeRoutes)
 .use("/chat", chatRoutes)
+.use("/circuits", circuitAPIRoutes)
 .use(adminsRoutes)
 .use(notFoundRoutes)
 
