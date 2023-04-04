@@ -20,7 +20,8 @@ import equipeRoutes from "./routes/equipe.js";
 import chatRoutes from "./routes/chat.js";
 import notFoundRoutes from "./routes/404.js";
 import adminsRoutes from "./routes/admins.js";
-import circuitAPIRoutes from "./routes/circuits.js";
+import circuitAPIRoutes from "./routes/circuits.js"; //Appel API Formule 1
+import driversAPIRoutes from "./routes/drivers.js"; //Création API REST (JSON)
 
 app.use(express.urlencoded({ extended: true }))
 
@@ -39,7 +40,8 @@ app.use(express.urlencoded({ extended: true }))
 .use("/select", selectRoutes)
 .use("/equipe", equipeRoutes)
 .use("/chat", chatRoutes)
-.use("/circuits", circuitAPIRoutes)
+.use("/circuits", circuitAPIRoutes) //Appel API Formule 1
+.use("/drivers", driversAPIRoutes) //Création API REST (JSON)
 .use(adminsRoutes)
 .use(notFoundRoutes)
 

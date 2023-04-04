@@ -1,0 +1,124 @@
+{
+  "drivers": [
+    {
+      "id": 1,
+      "firstname": "Lewis",
+      "lastname": "Hamilton",
+      "constructorsF1": "Mercedes"
+    },
+    {
+      "id": 2,
+      "firstname": "George",
+      "lastname": "Russell",
+      "constructorsF1": "Mercedes"
+    },
+    {
+      "id": 3,
+      "firstname": "Max",
+      "lastname": "Verstappen",
+      "constructorsF1": "Red Bull"
+    },
+    {
+      "id": 4,
+      "firstname": "Sergio",
+      "lastname": "Pérez",
+      "constructorsF1": "Red Bull"
+    },
+    {
+      "id": 5,
+      "firstname": "Charles",
+      "lastname": "Leclerc",
+      "constructorsF1": "Ferrari"
+    },
+    {
+      "id": 6,
+      "firstname": "Carlos",
+      "lastname": "Sainz",
+      "constructorsF1": "Ferrari"
+    },
+    {
+      "id": 7,
+      "firstname": "Esteban",
+      "lastname": "Ocon",
+      "constructorsF1": "Alpine"
+    },
+    {
+      "id": 8,
+      "firstname": "Pierre",
+      "lastname": "Gasly",
+      "constructorsF1": "Alpine"
+    },
+    {
+      "id": 9,
+      "firstname": "Lando",
+      "lastname": "Norris",
+      "constructorsF1": "Mclaren"
+    },
+    {
+      "id": 10,
+      "firstname": "Oscar",
+      "lastname": "Piastri",
+      "constructorsF1": "Mclaren"
+    },
+    {
+      "id": 11,
+      "firstname": "Fernando",
+      "lastname": "Alonso",
+      "constructorsF1": "Aston Martin"
+    },
+    {
+      "id": 12,
+      "firstname": "Lance",
+      "lastname": "Stroll",
+      "constructorsF1": "Aston Martin"
+    },
+    {
+      "id": 13,
+      "firstname": "Valtteri",
+      "lastname": "Bottas",
+      "constructorsF1": "Alfa Romeo"
+    },
+    {
+      "id": 14,
+      "firstname": "Guanyu",
+      "lastname": "Zhou",
+      "constructorsF1": "Alfa Romeo"
+    },
+    {
+      "id": 15,
+      "firstname": "Logan",
+      "lastname": "Sargeant",
+      "constructorsF1": "Williams"
+    },
+    {
+      "id": 16,
+      "firstname": "Alexander",
+      "lastname": "Albon",
+      "constructorsF1": "Williams"
+    },
+    {
+      "id": 17,
+      "firstname": "Kevin",
+      "lastname": "Magnussen",
+      "constructorsF1": "Haas"
+    },
+    {
+      "id": 18,
+      "firstname": "Nico",
+      "lastname": "Hülkenberg",
+      "constructorsF1": "Haas"
+    },
+    {
+      "id": 19,
+      "firstname": "Nyck",
+      "lastname": "de Vries",
+      "constructorsF1": "Alpha Tauri"
+    },
+    {
+      "id": 20,
+      "firstname": "Yuki",
+      "lastname": "Tsunoda",
+      "constructorsF1": "Alpha Tauri"
+    }
+  ]
+}
