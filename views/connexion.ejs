@@ -4,13 +4,23 @@
     <%- include('./template_ejs/head.ejs'); %>
   </head>
   <body>
-
     <div class="flex items-center justify-center h-screen">
-      <div class="bg-white shadow-lg rounded-lg w-full max-w-md">
+      <div
+        class="bg-white shadow-lg rounded-lg w-full max-w-md flex flex-col items-center"
+      >
         <form action="/connexion" method="POST" class="w-full p-8">
-          <h1 class="text-center text-sm lg:text-lg mb-8 font-bold">Connexion</h1>
+          <h1 class="text-center text-sm lg:text-lg mb-8 font-bold">
+            Connexion
+          </h1>
+          <div class="flex justify-center mb-6">
+            <img
+              class="w-20 h-20 mb-3 rounded-full shadow-lg"
+              src="/assets/comptable.png"
+              alt="Bordered avatar"
+            />
+          </div>
           <% if (typeof message !== 'undefined') { %>
-          <p class="text-center"><%= message %></p>
+          <p class="text-center mb-8 text-red-500"><%= message %></p>
           <% } %>
           <div class="mb-6">
             <label
@@ -52,9 +62,7 @@
           </div>
         </form>
       </div>
-    </div>    
-
-
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
   </body>

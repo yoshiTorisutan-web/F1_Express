@@ -19,7 +19,7 @@ router.post("/connexion", (req, res) => {
     req.session.login = login;
     res.redirect("/");
   } else {
-    res.render("connexion.ejs", { message: "Identifiants incorrects" });
+    res.render("connexion.ejs", { message: "Identifiant et mot de passe incorrect !" });
   }
 });
 
