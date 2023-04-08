@@ -20,4 +20,6 @@ Application sur la F1, permettant de découvrir Express.JS et socket.io avec dif
 * CSS
 * HTML
 * Tailwind
+* FontAwesome
 * API Formula ONE (Ergast.com)
+* GraphQL
