@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
     .get(url)
     .then((response) => {
       const circuits = response.data.MRData.CircuitTable.Circuits;
-      res.render("circuits.ejs", { circuits });
+      res.render("circuits.ejs", { circuits, login: req.session.login });
     })
     .catch((error) => {
       console.log(error);

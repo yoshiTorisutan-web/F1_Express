@@ -8,6 +8,11 @@
   font-family: "Formula_1", sans-serif;
 }
 
+/*Background-white*/
+.whiteBackground {
+  background-color: white;
+}
+
 /* Accueil */
 #default-carousel {
   position: absolute;
@@ -25,12 +30,27 @@
 
 /* Par défaut */
 body {
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.racingBody {
   background-image: url("/assets/pexels-bitume-circuit-12426.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .fixBody {
   background-image: url("/assets/pexels-bitume-circuit-12426.jpg");
   overflow: hidden;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
 }
 
 header {
@@ -579,4 +599,13 @@ footer {
   border: solid 0 transparent;
   background-color: #414345;
   border-radius: 10px;
+}
+
+/* Lien naviguation */
+.nav-link {
+  color: gray;
+}
+
+.nav-link.active {
+  color: #3b82f6;
 }

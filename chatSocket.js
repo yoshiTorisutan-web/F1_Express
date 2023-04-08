@@ -1,12 +1,5 @@
 import { Server as SocketIOServer } from "socket.io";
 
-import Filter from "bad-words";
-
-const filter = new Filter({
-  placeHolder: "*", // Remplacer les gros mots par des astérisques
-  whitelist: ["allowed", "words"], // Autoriser ces mots
-});
-
 export function createSocketServer(httpServer) {
   const io = new SocketIOServer(httpServer);
 
