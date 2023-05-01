@@ -1,0 +1,82 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Documentation",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/graphql": {
+      "post": {
+        "summary": "Get list of drivers",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                },
+                "required": ["query"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "drivers": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Driver"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Driver": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "prenom": {
+            "type": "string"
+          },
+          "nom": {
+            "type": "string"
+          },
+          "nationalite": {
+            "type": "string"
+          },
+          "date_de_naissance": {
+            "type": "string"
+          },
+          "numero_pilotes": {
+            "type": "integer"
+          }
+        },
+        "required": ["id", "prenom", "nom", "nationalite", "date_de_naissance", "numero_pilotes"]
+      }
+    }
+  }
+}

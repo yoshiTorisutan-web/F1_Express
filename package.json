@@ -20,7 +20,13 @@
     "font-awesome": "^4.7.0",
     "graphql": "^15.8.0",
     "moment": "^2.29.4",
-    "socket.io": "^4.6.1"
+    "mysql2": "^3.2.4",
+    "passport": "^0.6.0",
+    "passport-oauth2": "^1.7.0",
+    "sequelize": "^6.31.1",
+    "sequelize-typescript": "^2.1.5",
+    "socket.io": "^4.6.1",
+    "swagger-ui-express": "^4.6.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
