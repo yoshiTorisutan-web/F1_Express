@@ -7,18 +7,22 @@
   "paths": {
     "/graphql": {
       "post": {
-        "summary": "Get list of drivers",
+        "summary": "Récupérer la liste des pilotes",
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "query": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "query { pilotes { id prenom nom nationalite date_de_naissance numero_pilotes } }"
                   }
                 },
-                "required": ["query"]
+                "required": [
+                  "query"
+                ]
               }
             }
           }
@@ -34,10 +38,68 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "drivers": {
+                        "pilotes": {
                           "type": "array",
                           "items": {
-                            "$ref": "#/components/schemas/Driver"
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "prenom": {
+                                "type": "string"
+                              },
+                              "nom": {
+                                "type": "string"
+                              },
+                              "nationalite": {
+                                "type": "string"
+                              },
+                              "date_de_naissance": {
+                                "type": "string",
+                                "format": "date"
+                              },
+                              "numero_pilotes": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string"
+                          },
+                          "locations": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "line": {
+                                  "type": "integer"
+                                },
+                                "column": {
+                                  "type": "integer"
+                                }
+                              }
+                            }
                           }
                         }
                       }
@@ -48,34 +110,6 @@
             }
           }
         }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Driver": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "prenom": {
-            "type": "string"
-          },
-          "nom": {
-            "type": "string"
-          },
-          "nationalite": {
-            "type": "string"
-          },
-          "date_de_naissance": {
-            "type": "string"
-          },
-          "numero_pilotes": {
-            "type": "integer"
-          }
-        },
-        "required": ["id", "prenom", "nom", "nationalite", "date_de_naissance", "numero_pilotes"]
       }
     }
   }
