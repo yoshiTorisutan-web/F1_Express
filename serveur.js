@@ -36,22 +36,28 @@ const sequelize = new Sequelize({
   password: "rootpwd",
   dialect: "mariadb",
   port: 4000,
-  host: "localhost"
+  host: "localhost",
 });
 
 // Define your Sequelize models
-const Pilotes = sequelize.define("Pilotes", {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+export const Pilotes = sequelize.define(
+  "Pilotes",
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    prenom: Sequelize.STRING,
+    nom: Sequelize.STRING,
+    nationalite: Sequelize.STRING,
+    date_de_naissance: Sequelize.DATE,
+    numero_pilotes: Sequelize.INTEGER,
   },
-  prenom: Sequelize.STRING,
-  nom: Sequelize.STRING,
-  nationalite: Sequelize.STRING,
-  date_de_naissance: Sequelize.DATE,
-  numero_pilotes: Sequelize.INTEGER,
-});
+  {
+    timestamps: false, // Ajoutez cette option pour désactiver les colonnes createdAt et updatedAt
+  }
+);
 
 const secret = crypto.randomBytes(32).toString("hex");
 console.log(secret); // logs a random string of 64 characters
@@ -150,8 +156,6 @@ const root = {
     return pilotes;
   },
 };
-
-
 
 // Configuration de l'API GraphQL
 app.use(
