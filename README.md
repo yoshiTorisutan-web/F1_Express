@@ -25,3 +25,5 @@ Application sur la F1, permettant de découvrir Express.JS et socket.io avec dif
 * GraphQL
 * Sequelize
 * Swagger
+* Mocha
+* Github Oauth2
